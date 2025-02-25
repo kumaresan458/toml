@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Program - MxTextBoxTest</title>
+    
+    <style>
+        /* General page styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #2E3B4E;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Java Program: MxTextBoxTest</h1>
+        </header>
+
+        <section>
+            <p>
+                This Java program tests the functionality of creating a text box (input field) 
+                in the context of mobile response protocols.
+            </p>
+        </section>
+
+        <section>
+            <h2>Program Code</h2>
+            <pre>
+import junit.framework.TestCase;
+
+import com.mobeix.im.hub.OutputMessage;
+import com.mobeix.protocol.enums.AccessibilityHeader;
+import com.mobeix.protocol.enums.Cacheable;
+import com.mobeix.protocol.enums.KeyScope;
+import com.mobeix.protocol.enums.Mode;
+
+public class MxTextBoxTest extends TestCase {
+    /*
+     * Component ID will be dynamic and passed as a parameter, retrieved from screen XML CI property.
+     * masterKey is optional and can be null.
+     * 
+     * - If Component is created with a Master Key:
+     *   - Key Scope: KeyScope.APPLICATION
+     *   - Key Mode: KeyMode.NORMAL
+     * 
+     * - If Component is created without a Master Key:
+     *   - Key Scope: KeyScope.SCREEN
+     *   - Key Mode: KeyMode.AUTO
+     */
+    public static MxTextBox getMxTextBox(String componentId, String styleId, String textData, String masterKey) {
+        MxTextBox textBox = new MxTextBox(null, textData);
+        textBox.setComponentID(componentId);
+        textBox.setCvKeyScope(KeyScope.SCREEN);
+        textBox.setKeyMode(Mode.AUTO);
+        textBox.setCvtextData(textData);
+        textBox.setCvdynamicStyleId(styleId);
+        textBox.setMasterKey(masterKey);
+        return textBox;
+    }
+
+    public static void buildResponse(MobeixMapperOutput output) {
+        MxTextBox textBox = getMxTextBox("c1", "123456", "test", null);
+        output.addComponent(textBox);
+    }
+}
+            </pre>
+        </section>
+    </div>
+</body>
+</html>
